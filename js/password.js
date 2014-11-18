@@ -87,4 +87,3 @@ $(document).ready(function() {
 	});
 	$('#addform').submit(ajaxAdd);
 });
-k
