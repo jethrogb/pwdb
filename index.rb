@@ -28,7 +28,14 @@ def html_for_row(pk,row)
 	ret=%Q(<tr id="#{pk}"><td class="sorthandle" style="text-align:center"><span style="margin:auto" class="ui-icon ui-icon-arrowthick-2-n-s"></span></td>)
 	ret<<%Q(<td><span class="deletehandle ui-icon ui-icon-trash"></span></td>)
 	Table.keys.each do |id|
-		ret<<%Q(<td><a href="#" id="v_#{id}_#{pk}" data-name="#{id}" data-pk="#{pk}" class="editable">#{CGI.escapeHTML(row[id].to_s)}</a></td>)
+		if id == :pass then
+			icons = %Q(<span class="copyhandle ui-icon ui-icon-clipboard"></span><span class="showhandle ui-icon ui-icon-unlocked"></span>)
+			klass = "hidden"
+		else
+			icons = ""
+			klass = ""
+		end
+		ret<<%Q(<td><a href="#" id="v_#{id}_#{pk}" data-name="#{id}" data-pk="#{pk}" class="editable #{id} #{klass}">#{CGI.escapeHTML(row[id].to_s)}</a>#{icons}</td>)
 	end
 	ret<<'</tr>'
 end

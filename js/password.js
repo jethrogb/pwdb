@@ -1,9 +1,11 @@
 function makeEditable(parent) {
-        parent.find('.editable').editable({
-                type: 'text',
-                url: '?a=u',
-        });
+	parent.find('.editable').editable({
+		type: 'text',
+		url: '?a=u',
+	});
 	parent.find('.deletehandle').off('click').on('click',ajaxDelete);
+	parent.find('.copyhandle').off('click').on('click',copyPassword);
+	parent.find('.showhandle').off('click').on('click',toggleVisibility);
 }
 function ajaxDelete(e) {
 	var row=$(e.target).parents('tr');
@@ -75,6 +77,21 @@ function ajaxAdd(e) {
 	ajax.fail(function(data) {$('#adderror').show().children('td').html(data)});
 	ajax.done(function(data) {makeEditable($('#mtable').append($(data).effect("highlight",{color:"#8f8"})));window.scroll(0,document.body.scrollHeight);e.target.reset()});
 	e.preventDefault();
+}
+function copyPassword(e) {
+	var apass=$(e.target).siblings('a.pass');
+	var selection = getSelection();
+	selection.removeAllRanges();
+	var range = document.createRange();
+	range.selectNodeContents(apass[0]);
+	selection.addRange(range);
+	document.execCommand("copy");
+	selection.removeAllRanges();
+	$(e.target).parents('td').effect("highlight",{color:"#8f8"});
+}
+function toggleVisibility(e) {
+	var apass=$(e.target).siblings('a.pass');
+	apass.toggleClass('hidden');
 }
 $.fn.editable.defaults.mode = 'inline';
 $(document).ready(function() {
