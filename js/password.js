@@ -73,7 +73,7 @@ function ajaxAdd(e) {
 	var ajax=$.post(f.attr('action'),f.serialize());
 	ajax.always(function() {$('#addprogress').hide();$('#addsubmit').show()});
 	ajax.fail(function(data) {$('#adderror').show().children('td').html(data)});
-	ajax.done(function(data) {makeEditable($('#mtable').append($(data).effect("highlight",{color:"#8f8"})))});
+	ajax.done(function(data) {makeEditable($('#mtable').append($(data).effect("highlight",{color:"#8f8"})));window.scroll(0,document.body.scrollHeight);e.target.reset()});
 	e.preventDefault();
 }
 $.fn.editable.defaults.mode = 'inline';

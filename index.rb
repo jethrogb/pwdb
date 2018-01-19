@@ -137,21 +137,19 @@ else
 <% Table.each do |id,name| %>
 	<th id="h_<%=id%>"><%=name%></th>
 <% end %>
-</tr></thead>
-<tbody id="mtable">
-<% mdata[:sort].each do |pk|; row=mdata[pk] %>
-	<%=html_for_row(pk,row)%>
-<% end %>
-</tbody>
-<tfoot><tr><td style="width:25px"><div class="editableform-loading" style="display:none" id="addprogress"></div></td>
+</tr><tr><td style="width:25px"><div class="editableform-loading" style="display:none" id="addprogress"></div></td>
 <td style="line-height:25px"><input type="submit" style="display:none" /><span id="addsubmit" onclick="$('#addform').submit()" class="ui-icon ui-icon-circle-plus"></span></td>
 <% Table.keys.each do |id| %>
         <td><input name="<%=id%>"/></td>
 <% end %>
 </tr>
-<tr id="sortplaceholder" style="display:none"><td><div class="editableform-loading"></div></td><td colspan="<%=Table.count+1%>"></td></tr>
 <tr id="adderror" class="ui-state-error" style="display:none"><td colspan="<%=Table.count+2%>"></td></tr>
-</tfoot>
+</thead><tbody id="mtable">
+<% mdata[:sort].each do |pk|; row=mdata[pk] %>
+	<%=html_for_row(pk,row)%>
+<% end %>
+</tbody>
+<tfoot><tr id="sortplaceholder" style="display:none"><td><div class="editableform-loading"></div></td><td colspan="<%=Table.count+1%>"></td></tr></tfoot>
 </table>
 </form>
 END
